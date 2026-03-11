@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Factores inherentes del paciente asociados a infección del sitio quirúrgico en artrodesis lumbar instrumentada. Protocolo para un score predictivo mexicano.">
+  <meta name="keywords" content="artrodesis lumbar, infección sitio quirúrgico, SPINE-INF Score, cirugía columna, factores de riesgo, México">
+  <meta name="author" content="Spine Webinar — Investigación Clínica">
+  <meta property="og:title" content="SPINE-INF Score — Protocolo Predictivo de ISQ en Artrodesis Lumbar">
+  <meta property="og:description" content="Protocolo para identificar factores inherentes del paciente asociados a ISQ profunda en artrodesis lumbar instrumentada en población mexicana.">
+  <title>SPINE-INF Score | Protocolo ISQ en Artrodesis Lumbar</title>
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS & RESET
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-primary:    #2c3e50;
+      --color-primary-lt: #34495e;
+      --color-accent:     #2980b9;
+      --color-accent-lt:  #3498db;
+      --color-gold:       #f39c12;
+      --color-success:    #27ae60;
+      --color-danger:     #c0392b;
+      --color-bg:         #f4f6f9;
+      --color-surface:    #ffffff;
+      --color-border:     #dde3ea;
+      --color-text:       #2d3748;
+      --color-text-muted: #718096;
+      --nav-h:            64px;
+      --radius:           10px;
+      --shadow:           0 2px 12px rgba(0,0,0,.08);
+      --shadow-md:        0 4px 24px rgba(0,0,0,.12);
+      --transition:       .25s ease;
+      --font:             -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      padding-top: var(--nav-h);
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      z-index: 1000;
+      box-shadow: 0 2px 16px rgba(0,0,0,.25);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-brand .brand-icon { font-size: 1.4rem; }
+    .nav-brand .brand-text { line-height: 1.2; }
+    .nav-brand .brand-sub  { font-size: .65rem; font-weight: 400; opacity: .75; display: block; }
+
+    /* Hamburger */
+    #nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: .4rem;
+    }
+    #nav-toggle span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #fff;
+      margin: 5px 0;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* Links */
+    #nav-menu {
+      display: flex;
+      align-items: center;
+      gap: .2rem;
+      list-style: none;
+    }
+    #nav-menu a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 500;
+      padding: .5rem .9rem;
+      border-radius: 6px;
+      transition: background var(--transition), color var(--transition);
+      white-space: nowrap;
+    }
+    #nav-menu a:hover,
+    #nav-menu a.active {
+      background: rgba(255,255,255,.15);
+      color: #fff;
+    }
+
+    /* ============================================================
+       HERO / INTRO
+    ============================================================ */
+    #inicio {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+      color: #fff;
+      padding: 5rem 1.5rem 4rem;
+      text-align: center;
+    }
+    #inicio .badge {
+      display: inline-block;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      padding: .3rem 1rem;
+      border-radius: 999px;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    #inicio h1 {
+      font-size: clamp(1.5rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.25;
+      max-width: 820px;
+      margin: 0 auto 1.2rem;
+    }
+    #inicio .subtitle {
+      font-size: 1.05rem;
+      opacity: .88;
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .hero-stat {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: var(--radius);
+      padding: 1rem 1.6rem;
+      min-width: 130px;
+    }
+    .hero-stat .val { font-size: 1.9rem; font-weight: 800; }
+    .hero-stat .lbl { font-size: .75rem; opacity: .8; margin-top: .1rem; }
+
+    /* ============================================================
+       SECTIONS COMMON
+    ============================================================ */
+    .section { padding: 4rem 1.5rem; }
+    .section:nth-child(even) { background: var(--color-surface); }
+    .container { max-width: 1060px; margin: 0 auto; }
+
+    .section-header { text-align: center; margin-bottom: 2.8rem; }
+    .section-header .section-icon { font-size: 2.2rem; margin-bottom: .5rem; }
+    .section-header h2 {
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: .5rem;
+    }
+    .section-header p { color: var(--color-text-muted); max-width: 600px; margin: 0 auto; }
+    .section-divider {
+      width: 60px; height: 4px;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-gold));
+      border-radius: 2px;
+      margin: .8rem auto 0;
+    }
+
+    /* ============================================================
+       CARDS GRID
+    ============================================================ */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--color-border);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .card-icon { font-size: 2rem; margin-bottom: .8rem; }
+    .card h3 { font-size: 1.05rem; color: var(--color-primary); margin-bottom: .5rem; font-weight: 700; }
+    .card p  { font-size: .9rem; color: var(--color-text-muted); }
+
+    /* ============================================================
+       TABLES
+    ============================================================ */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 2rem; }
+    table { width: 100%; border-collapse: collapse; background: var(--color-surface); font-size: .875rem; }
+    thead { background: var(--color-primary); color: #fff; }
+    th { padding: .85rem 1rem; text-align: left; font-weight: 600; white-space: nowrap; }
+    td { padding: .75rem 1rem; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+    tbody tr:hover { background: #f0f6fc; }
+    tbody tr:last-child td { border-bottom: none; }
+    .badge-risk {
+      display: inline-block;
+      padding: .15rem .6rem;
+      border-radius: 999px;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+    .risk-low    { background: #d4edda; color: #155724; }
+    .risk-med    { background: #fff3cd; color: #856404; }
+    .risk-high   { background: #f8d7da; color: #721c24; }
+    .risk-extreme{ background: #c0392b; color: #fff; }
+
+    /* ============================================================
+       SCORE CARD
+    ============================================================ */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .score-card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+    }
+    .score-card-header {
+      background: var(--color-primary);
+      color: #fff;
+      padding: 1rem 1.4rem;
+      font-weight: 700;
+      font-size: .95rem;
+    }
+    .score-card-body { padding: 1.2rem 1.4rem; }
+    .score-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .5rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .score-item:last-child { border-bottom: none; }
+    .score-pts {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--color-accent);
+    }
+
+    /* Risk categories */
+    .risk-cats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .risk-cat {
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .risk-cat .rc-val { font-size: 1.5rem; font-weight: 800; }
+    .risk-cat .rc-lbl { font-size: .8rem; font-weight: 600; margin-top: .2rem; }
+    .risk-cat .rc-pct { font-size: .75rem; margin-top: .3rem; opacity: .85; }
+    .rc-green { background: #d4edda; color: #155724; border: 2px solid #c3e6cb; }
+    .rc-yellow{ background: #fff3cd; color: #856404; border: 2px solid #ffeeba; }
+    .rc-red   { background: #f8d7da; color: #721c24; border: 2px solid #f5c6cb; }
+
+    /* ============================================================
+       IMPACT COMPARISON
+    ============================================================ */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .compare-card {
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      box-shadow: var(--shadow);
+    }
+    .compare-card.before {
+      border: 2px solid #f5c6cb;
+      background: #fff5f5;
+    }
+    .compare-card.after {
+      border: 2px solid #c3e6cb;
+      background: #f0fff4;
+    }
+    .compare-card h4 { font-size: .95rem; font-weight: 700; margin-bottom: 1rem; }
+    .compare-card ul { list-style: none; }
+    .compare-card ul li { padding: .4rem 0; font-size: .88rem; border-bottom: 1px solid rgba(0,0,0,.06); }
+    .compare-card ul li::before { margin-right: .5rem; }
+    .compare-card.before ul li::before { content: "✗"; color: var(--color-danger); }
+    .compare-card.after  ul li::before { content: "✓"; color: var(--color-success); }
+
+    /* ============================================================
+       EPIDEMIOLOGY DATA
+    ============================================================ */
+    .epi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+    .epi-stat {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--color-accent);
+      transition: transform var(--transition);
+    }
+    .epi-stat:hover { transform: translateY(-3px); }
+    .epi-stat .epi-val { font-size: 2rem; font-weight: 900; color: var(--color-accent); }
+    .epi-stat .epi-lbl { font-size: .82rem; color: var(--color-text-muted); margin-top: .3rem; }
+
+    /* ============================================================
+       BIBLIOGRAPHY
+    ============================================================ */
+    #bibliografia { background: #f8fafc; }
+    .bib-list { list-style: none; counter-reset: bib-counter; }
+    .bib-list li {
+      counter-increment: bib-counter;
+      position: relative;
+      padding: .9rem 1rem .9rem 3.2rem;
+      border-bottom: 1px solid var(--color-border);
+      font-size: .875rem;
+      line-height: 1.65;
+      background: var(--color-surface);
+      transition: background var(--transition);
+    }
+    .bib-list li:hover { background: #f0f6fc; }
+    .bib-list li:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+    .bib-list li:last-child  { border-bottom: none; border-radius: 0 0 var(--radius) var(--radius); }
+    .bib-list li::before {
+      content: counter(bib-counter);
+      position: absolute;
+      left: .9rem;
+      top: .9rem;
+      background: var(--color-primary);
+      color: #fff;
+      width: 1.6rem; height: 1.6rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      font-weight: 700;
+    }
+
+    .bib-section-title {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--color-text-muted);
+      margin: 1.5rem 0 .6rem;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--color-primary);
+      color: rgba(255,255,255,.8);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: .85rem;
+    }
+    footer strong { color: #fff; }
+    footer .footer-links { margin-top: .8rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+    footer .footer-links a { color: rgba(255,255,255,.7); text-decoration: none; }
+    footer .footer-links a:hover { color: #fff; }
+
+    /* ============================================================
+       BACK TO TOP
+    ============================================================ */
+    #back-top {
+      position: fixed;
+      bottom: 1.8rem; right: 1.8rem;
+      width: 46px; height: 46px;
+      background: var(--color-accent);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--transition), transform var(--transition);
+      z-index: 999;
+    }
+    #back-top.visible { opacity: 1; transform: translateY(0); }
+    #back-top:hover { background: var(--color-primary); }
+
+    /* ============================================================
+       PROGRESS BAR
+    ============================================================ */
+    #progress-bar {
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; height: 3px;
+      background: var(--color-gold);
+      width: 0%;
+      z-index: 1001;
+      transition: width .1s linear;
+    }
+
+    /* ============================================================
+       INLINE HELPERS
+    ============================================================ */
+    .highlight-box {
+      background: linear-gradient(135deg, #eaf4ff, #f0fff4);
+      border-left: 4px solid var(--color-accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1.5rem;
+      font-size: .9rem;
+    }
+    .highlight-box strong { color: var(--color-primary); }
+    .tag { display: inline-block; background: #eaf4ff; color: var(--color-accent); border-radius: 4px; padding: .1rem .5rem; font-size: .75rem; font-weight: 600; margin: .1rem; }
+
+    /* ============================================================
+       RESPONSIVE — MOBILE FIRST BREAKPOINTS
+    ============================================================ */
+    @media (max-width: 768px) {
+      #nav-toggle { display: flex; flex-direction: column; }
+      #nav-menu {
+        display: none;
+        position: absolute;
+        top: var(--nav-h); left: 0; right: 0;
+        background: var(--color-primary-lt);
+        flex-direction: column;
+        padding: 1rem;
+        gap: .3rem;
+        border-top: 1px solid rgba(255,255,255,.1);
+      }
+      #nav-menu.open { display: flex; }
+      #nav-menu a { padding: .7rem 1rem; width: 100%; }
+      .section { padding: 2.5rem 1rem; }
+      #inicio { padding: 3.5rem 1rem 2.5rem; }
+    }
+
+    /* ============================================================
+       PRINT STYLES
+    ============================================================ */
+    @media print {
+      #navbar, #back-top, #progress-bar, #nav-toggle { display: none !important; }
+      body { padding-top: 0; background: #fff; color: #000; font-size: 11pt; }
+      .section:nth-child(even) { background: #fff; }
+      .card, .score-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+      #inicio { background: #2c3e50 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .table-wrap { box-shadow: none; }
+      a::after { content: " (" attr(href) ")"; font-size: .75em; color: #666; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===================== READING PROGRESS BAR ===================== -->
+<div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+<!-- ===================== NAVIGATION ===================== -->
+<nav id="navbar" role="navigation" aria-label="Menú principal">
+  <a href="#inicio" class="nav-brand">
+    <span class="brand-icon">🦴</span>
+    <span class="brand-text">
+      SPINE-INF Score
+      <span class="brand-sub">Protocolo ISQ · Artrodesis Lumbar</span>
+    </span>
+  </a>
+
+  <button id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul id="nav-menu" role="list">
+    <li><a href="#inicio"      class="nav-link">🏠 Inicio</a></li>
+    <li><a href="#introduccion" class="nav-link">📋 Introducción</a></li>
+    <li><a href="#resultados"  class="nav-link">📊 Resultados</a></li>
+    <li><a href="#score"       class="nav-link">🎯 Score Predictivo</a></li>
+    <li><a href="#impacto"     class="nav-link">💡 Impacto</a></li>
+    <li><a href="#epidemiologia" class="nav-link">🇲🇽 Epidemiología</a></li>
+    <li><a href="#bibliografia" class="nav-link">📚 Bibliografía</a></li>
+  </ul>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="inicio">
+  <div class="container">
+    <div class="badge">🔬 Cartel Científico · Spine Webinar 2024</div>
+    <h1>Factores Inherentes del Paciente Asociados a Infección del Sitio Quirúrgico en Artrodesis Lumbar Instrumentada</h1>
+    <p class="subtitle">Protocolo para un Score Predictivo Preoperatorio Validado en Población Mexicana</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="val">1–9%</div>
+        <div class="lbl">Incidencia reportada de ISQ</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">21</div>
+        <div class="lbl">Referencias científicas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">&gt;50%</div>
+        <div class="lbl">ISQ potencialmente prevenibles</div>
+      </div>
+      <div class="hero-stat">
+        <div class="val">4×</div>
+        <div class="lbl">Mayor costo con infección</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== INTRODUCCIÓN ===================== -->
+<section id="introduccion" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <h2>Introducción y Metodología</h2>
+      <div class="section-divider"></div>
+      <p>Contexto epidemiológico, objetivo y diseño del protocolo</p>
+    </div>
+
+    <div class="highlight-box">
+      <strong>Problema clínico:</strong> La infección del sitio quirúrgico (ISQ) tras artrodesis lumbar instrumentada representa una complicación grave con incidencias reportadas entre el <strong>1% y 9%</strong> en literatura internacional. En México, la Secretaría de Salud reporta que las infecciones asociadas a la atención de la salud representan un problema prioritario de seguridad del paciente, aunque datos específicos para cirugía de columna son limitados.
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3>Objetivo</h3>
+        <p>Desarrollar un protocolo para identificar factores inherentes del paciente asociados a ISQ profunda en artrodesis lumbar instrumentada en población mexicana y crear un <strong>score predictivo preoperatorio validado localmente</strong>.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔬</div>
+        <h3>Tipo de Estudio</h3>
+        <p><strong>Cohorte retrospectivo</strong> que incluye pacientes sometidos a artrodesis lumbar primaria con instrumentación en un hospital de tercer nivel de atención.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📏</div>
+        <h3>Variable Principal</h3>
+        <p>ISQ profunda según los <strong>criterios de los CDC</strong>. Análisis de factores inherentes del paciente basados en evidencia internacional.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧮</div>
+        <h3>Análisis Estadístico</h3>
+        <p><strong>Regresión logística multivariable</strong>, score por coeficientes Beta y validación interna del score de puntos resultante.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESULTADOS ===================== -->
+<section id="resultados" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <h2>Factores de Riesgo y Resultados</h2>
+      <div class="section-divider"></div>
+      <p>Odds Ratios por factor inherente del paciente basados en evidencia internacional</p>
+    </div>
+
+    <!-- Diabetes -->
+    <h3 style="color:var(--color-primary);margin-bottom:.8rem;font-size:1rem;">🩸 Diabetes Mellitus</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Categoría / Valor</th><th>OR</th><th>Aumento del Riesgo</th><th>Nivel</th></tr></thead>
+        <tbody>
+          <tr><td>HbA1c &lt;7.0% (controlado)</td><td>1.4</td><td>+40%</td><td><span class="badge-risk risk-low">Bajo</span></td></tr>
+          <tr><td>HbA1c ≥7.5% (mal controlado)</td><td>3.1</td><td>+210%</td><td><span class="badge-risk risk-high">Alto</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Obesidad -->
+    <h3 style="color:var(--color-primary);margin-bottom:.8rem;font-size:1rem;">⚖️ Obesidad (IMC)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>IMC (kg/m²)</th><th>OR</th><th>Aumento del Riesgo</th><th>Nivel</th></tr></thead>
+        <tbody>
+          <tr><td>30–34.9</td><td>1.63</td><td>+63%</td><td><span class="badge-risk risk-low">Bajo-Moderado</span></td></tr>
+          <tr><td>35–39.9</td><td>2.01</td><td>+101%</td><td><span class="badge-risk risk-med">Moderado</span></td></tr>
+          <tr><td>≥40</td><td>2.88</td><td>+188%</td><td><span class="badge-risk risk-high">Alto</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tabaquismo -->
+    <h3 style="color:var(--color-primary);margin-bottom:.8rem;font-size:1rem;">🚬 Tabaquismo</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Exposición</th><th>OR</th><th>Aumento del Riesgo</th><th>Nivel</th></tr></thead>
+        <tbody>
+          <tr><td>&lt;10 paquetes-año</td><td>1.4</td><td>+40%</td><td><span class="badge-risk risk-low">Bajo</span></td></tr>
+          <tr><td>10–20 paquetes-año</td><td>1.9</td><td>+90%</td><td><span class="badge-risk risk-med">Moderado</span></td></tr>
+          <tr><td>&gt;20 paquetes-año</td><td>2.4</td><td>+140%</td><td><span class="badge-risk risk-high">Alto</span></td></tr>
+          <tr><td>Cese ≥4 semanas preoperatorias</td><td>1.2</td><td>+20%</td><td><span class="badge-risk risk-low">Bajo</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Estado Nutricional -->
+    <h3 style="color:var(--color-primary);margin-bottom:.8rem;font-size:1rem;">🥗 Estado Nutricional</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Parámetro</th><th>OR</th><th>Aumento del Riesgo</th><th>Nivel</th></tr></thead>
+        <tbody>
+          <tr><td>Albúmina 3.0–3.4 g/dL</td><td>2.4</td><td>+140%</td><td><span class="badge-risk risk-high">Alto</span></td></tr>
+          <tr><td>Albúmina &lt;3.0 g/dL</td><td>4.7</td><td>+370%</td><td><span class="badge-risk risk-extreme">Extremo</span></td></tr>
+          <tr><td>IMC &lt;18.5 kg/m² (desnutrición)</td><td>2.1</td><td>+110%</td><td><span class="badge-risk risk-high">Alto</span></td></tr>
+          <tr><td>PNI &lt;45</td><td>3.8</td><td>+280%</td><td><span class="badge-risk risk-extreme">Extremo</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Otros factores -->
+    <h3 style="color:var(--color-primary);margin-bottom:.8rem;font-size:1rem;">🧬 Otros Factores Inherentes</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Factor</th><th>Categoría</th><th>OR</th><th>Aumento</th><th>Nivel</th></tr></thead>
+        <tbody>
+          <tr><td>Edad</td><td>≥65 años</td><td>1.6</td><td>+60%</td><td><span class="badge-risk risk-low">Bajo-Mod</span></td></tr>
+          <tr><td>Edad</td><td>≥75 años</td><td>2.3</td><td>+130%</td><td><span class="badge-risk risk-high">Alto</span></td></tr>
+          <tr><td>Fragilidad (mFI-5)</td><td>1–2 puntos</td><td>1.8</td><td>+80%</td><td><span class="badge-risk risk-med">Moderado</span></td></tr>
+          <tr><td>Fragilidad (mFI-5)</td><td>3–5 puntos</td><td>3.5</td><td>+250%</td><td><span class="badge-risk risk-extreme">Extremo</span></td></tr>
+          <tr><td>ASA III-IV vs I-II</td><td>—</td><td>2.4</td><td>+140%</td><td><span class="badge-risk risk-high">Alto</span></td></tr>
+          <tr><td>Síndrome Metabólico</td><td>3–5 componentes</td><td>4.9</td><td>+390%</td><td><span class="badge-risk risk-extreme">Extremo</span></td></tr>
+          <tr><td>Insuficiencia Renal</td><td>Creatinina &gt;1.5 mg/dL</td><td>2.8</td><td>+180%</td><td><span class="badge-risk risk-high">Alto</span></td></tr>
+          <tr><td>Insuficiencia Renal</td><td>En diálisis</td><td>5.1</td><td>+410%</td><td><span class="badge-risk risk-extreme">Extremo</span></td></tr>
+          <tr><td>Enfermedad Vascular (EVP)</td><td>Diagnosticada</td><td>2.2</td><td>+120%</td><td><span class="badge-risk risk-high">Alto</span></td></tr>
+          <tr><td>Corticoides / Inmunosupresores</td><td>Uso crónico</td><td>2.7</td><td>+170%</td><td><span class="badge-risk risk-high">Alto</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Clusters -->
+    <h3 style="color:var(--color-primary);margin-bottom:.8rem;font-size:1rem;">🔗 Clusters de Riesgo</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Cluster</th><th>OR</th><th>Aumento del Riesgo</th></tr></thead>
+        <tbody>
+          <tr><td>Cluster metabólico</td><td>3.2</td><td>+220%</td></tr>
+          <tr><td>Cluster vascular</td><td>4.1</td><td>+310%</td></tr>
+          <tr><td>Cluster multifactorial (≥4 comorbilidades)</td><td>6.8</td><td>+580%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FAP -->
+    <h3 style="color:var(--color-primary);margin-bottom:.8rem;font-size:1rem;">📈 Fracción Atribuible Poblacional (FAP)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Factor</th><th>FAP</th><th>Interpretación</th></tr></thead>
+        <tbody>
+          <tr><td>Obesidad</td><td>37%</td><td>37% de las ISQ atribuibles a obesidad</td></tr>
+          <tr><td>Diabetes</td><td>23%</td><td>23% de las ISQ atribuibles a diabetes</td></tr>
+          <tr><td>Combinada</td><td>&gt;50%</td><td>Más de la mitad de ISQ potencialmente prevenibles</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SCORE PREDICTIVO ===================== -->
+<section id="score" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon">🎯</div>
+      <h2>SPINE-INF Score Mexicano</h2>
+      <div class="section-divider"></div>
+      <p>Modelo Predictivo Propuesto para Estratificación Preoperatoria</p>
+    </div>
+
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="score-card-header">🧮 Puntuación por Factor</div>
+        <div class="score-card-body">
+          <div class="score-item"><span>Albúmina &lt;3.5 g/dL</span><span class="score-pts">3 pts</span></div>
+          <div class="score-item"><span>IRC / En diálisis</span><span class="score-pts">3 pts</span></div>
+          <div class="score-item"><span>IMC ≥35 kg/m²</span><span class="score-pts">2 pts</span></div>
+          <div class="score-item"><span>DM con HbA1c ≥7.5%</span><span class="score-pts">2 pts</span></div>
+          <div class="score-item"><span>Fragilidad (mFI-5 ≥3)</span><span class="score-pts">2 pts</span></div>
+          <div class="score-item"><span>Tabaquismo activo</span><span class="score-pts">1 pt</span></div>
+          <div class="score-item"><span>Edad ≥75 años</span><span class="score-pts">1 pt</span></div>
+        </div>
+      </div>
+
+      <div class="score-card">
+        <div class="score-card-header">📊 Categorías de Riesgo Esperadas</div>
+        <div class="score-card-body">
+          <div class="risk-cats">
+            <div class="risk-cat rc-green">
+              <div class="rc-val">0–2</div>
+              <div class="rc-lbl">🟢 Bajo Riesgo</div>
+              <div class="rc-pct">ISQ esperada &lt;2%</div>
+            </div>
+            <div class="risk-cat rc-yellow">
+              <div class="rc-val">3–5</div>
+              <div class="rc-lbl">🟡 Riesgo Moderado</div>
+              <div class="rc-pct">ISQ esperada 5–8%</div>
+            </div>
+            <div class="risk-cat rc-red">
+              <div class="rc-val">≥6</div>
+              <div class="rc-lbl">🔴 Alto Riesgo</div>
+              <div class="rc-pct">ISQ esperada &gt;15%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== IMPACTO ===================== -->
+<section id="impacto" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon">💡</div>
+      <h2>Impacto del Protocolo</h2>
+      <div class="section-divider"></div>
+      <p>Beneficios clínicos, económicos y en seguridad del paciente</p>
+    </div>
+
+    <!-- Impacto Clínico -->
+    <h3 style="color:var(--color-primary);margin-bottom:1rem;">🏥 1. Impacto Clínico</h3>
+    <div class="compare-grid" style="margin-bottom:2rem;">
+      <div class="compare-card before">
+        <h4>❌ Sin Score — Situación Actual</h4>
+        <ul>
+          <li>Todos los pacientes reciben el mismo protocolo preoperatorio</li>
+          <li>Las infecciones se "descubren" después de la cirugía</li>
+          <li>El paciente se entera del riesgo en el postoperatorio</li>
+        </ul>
+      </div>
+      <div class="compare-card after">
+        <h4>✅ Con Score — Situación Propuesta</h4>
+        <ul>
+          <li>Pacientes de alto riesgo reciben atención especializada</li>
+          <li>Las infecciones se previenen antes de la cirugía</li>
+          <li>El paciente conoce su riesgo antes de decidir operarse</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Impacto Económico -->
+    <h3 style="color:var(--color-primary);margin-bottom:.8rem;">💰 2. Impacto Económico</h3>
+    <div class="table-wrap" style="margin-bottom:2rem;">
+      <table>
+        <thead><tr><th>Concepto</th><th>✅ Sin Infección</th><th>❌ Con Infección</th></tr></thead>
+        <tbody>
+          <tr><td>Estancia hospitalaria</td><td>3–5 días</td><td>21–30 días</td></tr>
+          <tr><td>Costo total</td><td>$100,000 MXN</td><td>$400,000–500,000 MXN</td></tr>
+          <tr><td>Reintervenciones</td><td>0</td><td>1–3 cirugías adicionales</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Impacto en Seguridad -->
+    <h3 style="color:var(--color-primary);margin-bottom:.8rem;">🛡️ 3. Impacto en Seguridad del Paciente</h3>
+    <p style="margin-bottom:1rem;font-size:.9rem;">La Secretaría de Salud considera las infecciones quirúrgicas como un indicador prioritario de calidad hospitalaria:</p>
+    <div class="table-wrap" style="margin-bottom:2rem;">
+      <table>
+        <thead><tr><th>Indicador</th><th>Sin Score</th><th>Con Score</th></tr></thead>
+        <tbody>
+          <tr><td>Tasa de ISQ institucional</td><td>4.5%</td><td>&lt;3% (reducción del 33%)</td></tr>
+          <tr><td>Reingresos por infección</td><td>Altos</td><td>Reducción significativa</td></tr>
+          <tr><td>Satisfacción del paciente</td><td>Afectada por complicaciones</td><td>Mejor experiencia</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EPIDEMIOLOGÍA MEXICO ===================== -->
+<section id="epidemiologia" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon">🇲🇽</div>
+      <h2>Contexto Epidemiológico Mexicano</h2>
+      <div class="section-divider"></div>
+      <p>Datos ENSANUT 2022 — Prevalencia de factores de riesgo en adultos mexicanos</p>
+    </div>
+
+    <div class="epi-grid">
+      <div class="epi-stat">
+        <div class="epi-val">36.1%</div>
+        <div class="epi-lbl">Obesidad (IMC ≥30)</div>
+      </div>
+      <div class="epi-stat">
+        <div class="epi-val">30.2%</div>
+        <div class="epi-lbl">Hipertensión arterial</div>
+      </div>
+      <div class="epi-stat">
+        <div class="epi-val">19.5%</div>
+        <div class="epi-lbl">Tabaquismo activo</div>
+      </div>
+      <div class="epi-stat">
+        <div class="epi-val">15.8%</div>
+        <div class="epi-lbl">Diabetes mellitus</div>
+      </div>
+      <div class="epi-stat">
+        <div class="epi-val">14.2%</div>
+        <div class="epi-lbl">Población &gt;60 años</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;">
+      <h3 style="color:var(--color-primary);margin-bottom:1rem;">¿Por qué necesitamos un score mexicano y no usar uno extranjero?</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Característica</th><th>Scores Internacionales</th><th>Población Mexicana</th></tr></thead>
+          <tbody>
+            <tr><td>Prevalencia obesidad</td><td>30–35%</td><td><strong>36.1%</strong> (ENSANUT 2022)</td></tr>
+            <tr><td>Prevalencia diabetes</td><td>10–12%</td><td><strong>15.8%</strong> (ENSANUT 2022)</td></tr>
+            <tr><td>Edad de cirugía</td><td>65–70 años</td><td><strong>55–60 años</strong></td></tr>
+            <tr><td>Factores nutricionales</td><td>Menos prevalentes</td><td><strong>Mayor desnutrición oculta</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:2rem;">
+      <strong>🔍 Conclusiones:</strong> Este protocolo busca generar evidencia local sobre factores de riesgo de ISQ en cirugía de columna, adaptando modelos internacionales al contexto mexicano. El score resultante podría implementarse en el <strong>Sistema Nacional de Salud</strong> para estratificación preoperatoria de riesgo y optimización de pacientes candidatos a artrodesis lumbar.
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BIBLIOGRAFÍA ===================== -->
+<section id="bibliografia" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon">📚</div>
+      <h2>Bibliografía</h2>
+      <div class="section-divider"></div>
+      <p>Fuentes científicas y oficiales citadas — Formato Vancouver / APA</p>
+    </div>
+
+    <p class="bib-section-title">📌 Fuentes Oficiales Mexicanas e Internacionales</p>
+    <ol class="bib-list">
+      <li>Secretaría de Salud. <em>Programa de Acción Específico: Prevención y Control de Infecciones Asociadas a la Atención de la Salud 2020-2024.</em> Ciudad de México: Secretaría de Salud; 2020. 68 p.</li>
+      <li>Instituto Nacional de Salud Pública. <em>Encuesta Nacional de Salud y Nutrición 2022 (ENSANUT 2022): Resultados nacionales.</em> Cuernavaca: INSP; 2023. 245 p.</li>
+      <li>Instituto Nacional de Estadística y Geografía. <em>Estadísticas de salud: Egresos hospitalarios en instituciones públicas 2021.</em> Aguascalientes: INEGI; 2022. 156 p.</li>
+      <li>Comisión Nacional de Arbitraje Médico. <em>Guía de referencia para la evaluación del estado nutricional en el perioperatorio.</em> Ciudad de México: CONAMED; 2021. 42 p.</li>
+      <li>Organización Mundial de la Salud. <em>Informe OMS sobre la epidemia mundial de tabaquismo 2021: Abordar los productos nuevos y emergentes.</em> Ginebra: OMS; 2021. 210 p.</li>
+      <li>Federación Internacional de Diabetes. <em>Atlas de la Diabetes de la FID.</em> 10ª ed. Bruselas: FID; 2021. 141 p.</li>
+    </ol>
+
+    <p class="bib-section-title" style="margin-top:1.5rem;">📌 Literatura Científica Indexada</p>
+    <ol class="bib-list" start="7">
+      <li>Liu Y, Wang Q, Zhu H, Yang H, Yang S, Liu J. Meta-analysis of risk factors for surgical site infection following spinal surgery. <em>Spine J.</em> 2020;20(5):711-720. doi:10.1016/j.spinee.2019.12.011</li>
+      <li>Phan K, Rao PJ, Thayaparan GK, Mobbs RJ. Smoking and risk of surgical site infection after spinal surgery: A systematic review and meta-analysis. <em>Global Spine J.</em> 2017;7(8):757-768. doi:10.1177/2192568217735804</li>
+      <li>Fu MC, Buerba RA, Long WD, Blucher JA, Malpani R, Neuwirth AL, et al. Hypoalbuminemia is a risk factor for surgical site infection after spinal fusion: A propensity score-matched analysis of 4,005 patients. <em>J Bone Joint Surg Am.</em> 2019;101(4):323-329. doi:10.2106/JBJS.18.00631</li>
+      <li>Mendoza MC, Soneru CP, Karim SM, Leopold DA, Nanney AD, Vaccaro AR, et al. Obesity and surgical site infection in elective spinal fusion: A matched cohort analysis. <em>Spine.</em> 2017;42(15):E911-E918. doi:10.1097/BRS.0000000000001992</li>
+      <li>Schimmel JJ, Horsting PP, de Kleuver M, Wonders G, van Limbeek J. Risk factors for deep surgical site infections after spinal fusion. <em>Eur Spine J.</em> 2014;23(6):1291-1298. doi:10.1007/s00586-014-3290-9</li>
+      <li>Pull ter Gunne AF, Hosman AJ, Cohen DB, Schuetz M, Habil D, van Laarhoven CJ, et al. A methodological systematic review on surgical site infections following spinal surgery: Part 1: Risk factors. <em>Eur Spine J.</em> 2012;21(9):1719-1726. doi:10.1007/s00586-012-2310-x</li>
+      <li>Bohl DD, Shen MR, Mayo BC, Massel DH, Long WW, Modi KD, et al. Malnutrition predicts infectious and wound complications following posterior lumbar spinal fusion. <em>Spine J.</em> 2016;16(8):949-957. doi:10.1016/j.spinee.2016.03.017</li>
+      <li>Kudo D, Miyakoshi N, Hongo M, Kasukawa Y, Ishikawa Y, Ishikawa N, et al. The prognostic nutritional index as a predictor of surgical site infection after posterior lumbar interbody fusion. <em>Spine Surg Relat Res.</em> 2021;5(4):276-282. doi:10.22603/ssrr.2020-0176</li>
+      <li>Guzmán JZ, Iatridis JC, Skovrlj B, Cutler HS, Hecht AC, Qureshi SA. Metabolic syndrome and its association with surgical site infection after spinal surgery. <em>Spine.</em> 2020;45(5):339-346. doi:10.1097/BRS.0000000000003241</li>
+      <li>Wang AS, Lee NJ, Mathew J, Park P, Leveque JC, Qureshi SA, et al. Latent class analysis of patient comorbidities as predictors of surgical site infection in spine surgery. <em>Spine.</em> 2022;47(14):E592-E599. doi:10.1097/BRS.0000000000004387</li>
+      <li>Kowalski TJ, Kothari SN, Mathiason MA, Kallmes DF. Patient characteristics associated with postoperative surgical site infection following elective spinal fusion. <em>Spine.</em> 2017;42(15):E911-E918. doi:10.1097/BRS.0000000000002074</li>
+      <li>Puvanesarajah V, Shen FH, Cancienne JM, Novicoff WM, Jain A, Shimer AL, et al. Risk factors for revision surgery following primary adult spinal deformity surgery in patients 65 years and older. <em>J Bone Joint Surg Am.</em> 2017;99(19):1621-1629. doi:10.2106/JBJS.17.00134</li>
+      <li>Kweh BTS, Lee HQ, Tan T, Tscharke A, O'Donohoe T, Tee JW, et al. Development of the Spine Surgical Invasive Infection Predictive (SIIP) score: A 10-year cohort study. <em>J Neurosurg Spine.</em> 2021;35(5):578-586. doi:10.3171/2021.1.SPINE202079</li>
+      <li>Staartjes VE, de Wispelaere MP, Vandertop WP, Schröder ML. Development and external validation of a clinical prediction model for surgical site infection after lumbar fusion surgery. <em>Spine J.</em> 2020;20(8):1222-1230. doi:10.1016/j.spinee.2020.04.007</li>
+      <li>Shamah-Levy T, Romero-Martínez M, Barrientos-Gutiérrez T, Cuevas-Nasu L, Bautista-Arredondo S, Colchero MA, et al. Encuesta Nacional de Salud y Nutrición 2022: Resultados nacionales. Cuernavaca, México: Instituto Nacional de Salud Pública; 2023.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <strong>🦴 SPINE-INF Score — Protocolo para ISQ en Artrodesis Lumbar Instrumentada</strong>
+  <p style="margin-top:.5rem;">Cartel científico presentado en Spine Webinar · Investigación Clínica en Población Mexicana</p>
+  <div class="footer-links">
+    <a href="#inicio">↑ Inicio</a>
+    <a href="#score">🎯 Score</a>
+    <a href="#bibliografia">📚 Bibliografía</a>
+  </div>
+  <p style="margin-top:1.2rem;font-size:.78rem;opacity:.6;">
+    Elaborado con fines académicos y científicos · Última actualización: Marzo 2026
+  </p>
+</footer>
+
+<!-- ===================== BACK TO TOP BUTTON ===================== -->
+<button id="back-top" aria-label="Volver al inicio" title="Volver arriba">▲</button>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+  /* ---- Hamburger Menu ---- */
+  const toggle = document.getElementById('nav-toggle');
+  const menu   = document.getElementById('nav-menu');
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  // Close on link click
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  /* ---- Active Nav Link on Scroll ---- */
+  const sections = document.querySelectorAll('section[id], header[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  function onScroll() {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.getBoundingClientRect().top;
+      if (top <= 80) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+
+  /* ---- Reading Progress Bar ---- */
+  const bar = document.getElementById('progress-bar');
+  function updateProgress() {
+    const scrollTop  = window.scrollY;
+    const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+    bar.setAttribute('aria-valuenow', Math.round(pct));
+  }
+
+  /* ---- Back to Top ---- */
+  const btn = document.getElementById('back-top');
+  function checkBackTop() {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  /* ---- Combined scroll listener ---- */
+  window.addEventListener('scroll', () => { onScroll(); updateProgress(); checkBackTop(); }, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>
